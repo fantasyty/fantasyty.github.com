@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Archives: 2014 | 盖尔的小窝</title>
+  <title>Archives: 2014/6 | 盖尔的小窝</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta content="website" property="og:type">
 <meta property="og:title">
-<meta content="https://github.com/fantasyty/fantasyty.github.com.git/archives/2014/" property="og:url">
+<meta content="https://github.com/fantasyty/fantasyty.github.com.git/archives/2014/06/" property="og:url">
 <meta property="og:image">
 <meta content="盖尔的小窝" property="og:site_name">
 <meta property="og:description">
@@ -117,122 +117,6 @@
     </div>
     <footer class="article-footer">
       <a data-url="https://github.com/fantasyty/fantasyty.github.com.git/2014/06/23/crash去重/" data-id="m5jvhgrljuy55wi6" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Android内存" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2014/05/22/Android内存/" class="article-date">
-  <time datetime="2014-05-22T10:41:36.000Z" itemprop="datePublished">5月 22 2014</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2014/05/22/Android内存/">Android内存</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>查看Android手机dalvik heapsize大小：<br>adb shell getprop | grep dalvik.vm.heapgrowthlimit</p>
-<p>note3上，这个数据是128M；红米note上，是256M。牛逼啊。</p>
-<p>adb shell dumpsys meminfo PACKAGE_NAME<br>看到native heap/dalvik heap，如果dalvik heap值接近上面这个上限了，那内存就差不多了。<br>刚刚在note3上试的图片加载的时候这个dalvik heap到了127.9M了。看来这个结论还比较靠谱。<br>有关内存的问题，有空要搞个整理，把看的东西集中一下，加以试验，得到一些正确的结论。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://github.com/fantasyty/fantasyty.github.com.git/2014/05/22/Android内存/" data-id="dyhn4bxuyk84piqr" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-线上数据对测试的帮助" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2014/05/04/线上数据对测试的帮助/" class="article-date">
-  <time datetime="2014-05-04T06:50:36.000Z" itemprop="datePublished">5月 4 2014</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2014/05/04/线上数据对测试的帮助/">线上数据对测试的帮助</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>安卓适配的点太多，不过我们可以从应用的线上数据中获得一些帮助。</p>
-<p>1、机型，系统版本，厂商，网络<br>可以帮助初期测试时选取主要的几款手机进行测试，对于没有精力覆盖是个很好的办法。后期适配时，也可以按照这些数据，分配不同的精力在不同的设备上。</p>
-<p>2、用户行为<br>在回归老版本功能时，对于用户经常做的操作要重点保障回归。</p>
-<p>3、线上版本<br>可以根据产品的线上版本分布在新版本发布时进行针对性的测试，比如新加的服务或接口会不会影响主要的老版本的功能；另外，覆盖测试时，也不必每个版本都覆盖到，只要选取当前市场上主要的几个版本测试升级即可。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://github.com/fantasyty/fantasyty.github.com.git/2014/05/04/线上数据对测试的帮助/" data-id="4sz6p5mfnnbrswhp" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2014/04/23/hello-world/" class="article-date">
-  <time datetime="2014-04-23T01:38:36.000Z" itemprop="datePublished">4月 23 2014</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2014/04/23/hello-world/">Hello World</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a href="http://hexo.io" target="_blank">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs" target="_blank">documentation</a> to learn how to use.</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://github.com/fantasyty/fantasyty.github.com.git/2014/04/23/hello-world/" data-id="yb0skbnucwwwu8zh" class="article-share-link">Share</a>
       
       
     </footer>

@@ -59,6 +59,73 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-crash去重" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/06/23/crash去重/" class="article-date">
+  <time datetime="2014-06-23T06:20:36.000Z" itemprop="datePublished">6月 23 2014</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/06/23/crash去重/">crash去重</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>一、原因</p>
+<p>每期项目发布后，要跟踪线上的用户crash，查明原因进行修改。当用户数增多时，每天的crash可以达到千级别的条数，数据源本身的去重效果一般，是严格的全部stack字符串匹配，所以看起来很累。另外一点，只能看每天的crash，不能汇总一个时间段的，而一个版本发布后，今天和明天都会有很多重复的crash，对于已经处理过的crash，我们还是要花时间去看这些数据，有时也会忘掉是不是把这个crash记录过。这两点是我们做这个去重工具的初衷。</p>
+<p>二、思路</p>
+<p>1、分析原始结果可以看到，很多看上去一样的crash之所以被认为是两条，原因是错误行数有细微的区别，这里的不一致行数一般都是系统sdk不同导致的，而不会影响我们自己项目代码的行数。所以，我们这里简单粗暴，把所有()括起来的行数部分全部去掉。</p>
+<p>另外，一些不一致是部分stack信息的数字不一样导致的，比如有xxxx-1.apk和xxxx-2.apk这种，很恶心，所以继续简单粗暴，把所有数字去掉。</p>
+<p>还有一些是类似xxxx.xxxx@41c12cf8这种更恶心的，所以简单粗暴，把@符到空格的这一段去掉。</p>
+<p>简单的三步之后，已经可以去掉很多重复了，试验样本不大，不过去重后的量级大约在20%-40%的范围内浮动。</p>
+<p>其实到这一步我们可以继续做优化，比如搞更精确的字符串编辑距离的比较，然后除以字符串长度，给定一个比如10%的限定，这样做去重效果肯定会更好，但是这一步担心算法复杂度，当log比较多的时候担心开销，所以暂时没有继续深挖。</p>
+<p>2、没有继续深挖的一个原因是，我们的瓶颈其实在于每天反复处理昨天已经看过的crash，所以我们必须维护一个已处理的库，每天的crash去跟这个库进行比较，相同的就是我们处理过的，只需要把我们关心的不同的单拿出来，这样我们看起来就爽多了。所以这里很简单，就是把处理过的写到文件里，然后每次需要去跟库比较时，load进来，合并后把合并结果再写回这个库，同时输出那些不同的crash，我们只要去看这些就ok了。</p>
+<p>三、使用</p>
+<p>$ python wdm_dedup.py -h</p>
+<p>Usage: usage : wdm_dedup.py [options]</p>
+<p>Options:</p>
+<p>  -h, —help            show this help message and exit</p>
+<p>  -i INPUT_FILE, —input=INPUT_FILE</p>
+<pre><code>                    exported file
+</code></pre><p>  -a ARCHIVE_FILE, —archive=ARCHIVE_FILE</p>
+<pre><code>                    archive file to be merged
+</code></pre><p>如果不想做跟库的比较，那么直接<br>python wdm_dedup.py -i input/CrashDetail-2014-06-16_1970-01-01.csv<br>输出结果</p>
+<hr>
+<p>Checkout 2014-06-16’s crash here :<br>        output/2014-06-16.read</p>
+<hr>
+<p>如果希望merge到库，那么<br>python wdm_dedup.py -i input/CrashDetail-2014-06-16_1970-01-01.csv -a archive/archive<br>输出结果</p>
+<hr>
+<p>Checkout 2014-06-16’s crash here :<br>        output/2014-06-16.read<br>Checkout 2014-06-16’s new crash here :<br>        output/2014-06-16.new<br>Checkout archive here :<br>        archive/archive.read</p>
+<hr>
+<p>然后去看看.new文件就是当天新产生的了，已按次数进行排序。enjoy~</p>
+<p>四、后续</p>
+<p>这个后面想想再怎么做好，目前经过两步去重后，每天要处理的量应该在10%左右了，随着库的累积，这个比例肯定越来越低，就不需要一天看上千个crash了。</p>
+<p>五、思考</p>
+<p>其实这个工具没有什么通用性，不过值得思考的是通过重复劳动找到可以减少重复的点，然后通过去分析数据、找出规律、确定目标，做一些东西出来，帮助工<br>作效率。而且可以从无到有，从有到好，这个过程中会思考怎么实现好，这种解决问题、改进解决办法的过程应该是通的。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/fantasyty/fantasyty.github.com.git/2014/06/23/crash去重/" data-id="m5jvhgrljuy55wi6" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-Android内存" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2014/05/22/Android内存/" class="article-date">
@@ -88,7 +155,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/fantasyty/fantasyty.github.com.git/2014/05/22/Android内存/" data-id="gu130fhm89890pn2" class="article-share-link">Share</a>
+      <a data-url="https://github.com/fantasyty/fantasyty.github.com.git/2014/05/22/Android内存/" data-id="dyhn4bxuyk84piqr" class="article-share-link">Share</a>
       
       
     </footer>
@@ -128,7 +195,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/fantasyty/fantasyty.github.com.git/2014/05/04/线上数据对测试的帮助/" data-id="j9ni8qtutv5b4ibh" class="article-share-link">Share</a>
+      <a data-url="https://github.com/fantasyty/fantasyty.github.com.git/2014/05/04/线上数据对测试的帮助/" data-id="4sz6p5mfnnbrswhp" class="article-share-link">Share</a>
       
       
     </footer>
@@ -165,7 +232,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/fantasyty/fantasyty.github.com.git/2014/04/23/hello-world/" data-id="5hzc739lrkz5536o" class="article-share-link">Share</a>
+      <a data-url="https://github.com/fantasyty/fantasyty.github.com.git/2014/04/23/hello-world/" data-id="yb0skbnucwwwu8zh" class="article-share-link">Share</a>
       
       
     </footer>
@@ -190,7 +257,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05">五月 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04">四月 2014</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06">六月 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05">五月 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04">四月 2014</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -200,6 +267,10 @@
     <h3 class="widget-title">Recents</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2014/06/23/crash去重/">crash去重</a>
+          </li>
         
           <li>
             <a href="/2014/05/22/Android内存/">Android内存</a>
