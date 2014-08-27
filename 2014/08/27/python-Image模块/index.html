@@ -92,13 +92,26 @@ im = Image.open(&quot;./test.png&quot;)
 print im.size
 </code></pre><p>这个结果就是一个宽高的二元元组，后面就随便你怎么搞了。</p>
 <p>顺带总结一下整个demo的实现方式：首先遍历res下的三个drawable文件，如果是图片类型的，就去获取它的这些信息，放到一个dict里面。接下来对dict排序，使用dict自带的sorted，把比较的key换成自己想要的即可。最后输出排序后的dict，按照想要的顺序输出。整个过程很简单，就前面搭环境可能会繁琐一些。</p>
-<p>大概结果就是下面这样的，可以把文件的路径也输出出来，方便找。<br>    $ python pic_scan.py<br>    divide  size    wid<em>hgt<br>    12.67   114     3</em>3<br>    2.25    182     9<em>9<br>    2.24    322     12</em>12<br>    2.19    140     8<em>8<br>    2.13    288     3</em>45<br>    2.01    289     12<em>12<br>    1.85    185     10</em>10<br>    1.85    185     10<em>10<br>    1.75    168     8</em>12<br>    1.67    241     12<em>12<br>    1.58    269     10</em>17   </p>
-<p>参考链接： <a href="http://blog.163.com/longsu2010@yeah/blog/static/173612348201193112324679/" target="_blank">http://blog.163.com/longsu2010@yeah/blog/static/173612348201193112324679/</a></p>
+<p>大概结果就是下面这样的，可以把文件的路径也输出出来，方便找。</p>
+<pre><code>$ python pic_scan.py
+divide  size    wid*hgt 
+12.67   114     3*3     
+2.25    182     9*9     
+2.24    322     12*12   
+2.19    140     8*8     
+2.13    288     3*45    
+2.01    289     12*12   
+1.85    185     10*10   
+1.85    185     10*10   
+1.75    168     8*12    
+1.67    241     12*12   
+1.58    269     10*17   
+</code></pre><p>参考链接： <a href="http://blog.163.com/longsu2010@yeah/blog/static/173612348201193112324679/" target="_blank">http://blog.163.com/longsu2010@yeah/blog/static/173612348201193112324679/</a></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/fantasyty/fantasyty.github.com.git/2014/08/27/python-Image模块/" data-id="exvz48ux3cqmrrrp" class="article-share-link">Share</a>
+      <a data-url="https://github.com/fantasyty/fantasyty.github.com.git/2014/08/27/python-Image模块/" data-id="r3sg3uvk7xyr32bu" class="article-share-link">Share</a>
       
       
     </footer>
